@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Portfolio Studio — Wiefran Varenzo</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@600&display=swap" rel="stylesheet"><link rel="stylesheet" href="studio.css"></head>
+<body>
+  <main class="studio-shell">
+    <section class="studio-intro"><a class="studio-mark" href="../">WV</a><div><p class="eyebrow">PRIVATE PORTFOLIO STUDIO</p><h1>Keep your best work current.</h1><p>A focused workspace to update the public portfolio without touching code.</p></div><small>Owner access only · Firebase Spark architecture</small></section>
+    <section class="login-panel" aria-labelledby="signin-title">
+      <div><p class="eyebrow">OWNER ACCESS</p><h2 id="signin-title">Sign in to Studio</h2><p class="muted">Only the owner account created in Firebase can enter.</p></div>
+      <form id="login-form">
+        <label for="email">Email</label><input id="email" name="email" type="email" autocomplete="username" required>
+        <label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button id="sign-in" type="submit">Sign in securely</button>
+      </form>
+      <p id="auth-note" class="auth-note" role="status">Add the Firebase project configuration to activate owner login.</p><a href="../">← Back to portfolio</a>
+    </section>
+  </main>
+  <script src="firebase-config.js"></script><script type="module" src="studio.js"></script>
+</body></html>

@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio Editor</title>
+    <style>
+      :root {
+        --bg: #f5f1ea;
+        --surface: #fffdf8;
+        --line: rgba(15,15,15,.14);
+        --ink: #171717;
+        --muted: #5e5e5a;
+        --accent: #ff5b2e;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      .admin-shell {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 24px 60px;
+      }
+      .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 28px;
+      }
+      h1 { margin: 0; font-size: clamp(30px, 4vw, 50px); }
+      .header-actions { display: flex; gap: 12px; align-items: center; }
+      button, .button-link {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--ink);
+        padding: 10px 14px;
+        border-radius: 999px;
+        font: inherit;
+        cursor: pointer;
+      }
+      .button-link {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .primary {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: #fff;
+      }
+      .editor-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+      }
+      .panel {
+        background: rgba(255,255,255,.72);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 18px;
+      }
+      .panel h2 {
+        margin: 0 0 16px;
+        font-size: 18px;
+      }
+      .field {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: .08em;
+      }
+      input, textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 10px 12px;
+        font: inherit;
+        background: #fff;
+      }
+      textarea { min-height: 96px; resize: vertical; }
+      .upload-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .upload-stack {
+        display: grid;
+        gap: 10px;
+        margin-top: 8px;
+      }
+      .upload-row input[type='file'] {
+        padding: 8px;
+      }
+      .upload-meta {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      .footer-save {
+        position: sticky;
+        bottom: 0;
+        background: rgba(245,241,234,.9);
+        backdrop-filter: blur(10px);
+        padding-top: 16px;
+        margin-top: 18px;
+      }
+      @media (max-width: 700px) {
+        .admin-header { flex-direction: column; align-items: flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <header class="admin-header">
+        <h1>Portfolio Editor</h1>
+        <div class="header-actions">
+          <button id="addSectionBtn" type="button">Add new section</button>
+          <button id="addProjectBtn" type="button">Add new project</button>
+          <a class="button-link" href="index.html" target="_blank" rel="noreferrer">Open preview</a>
+          <button id="saveBtn" class="primary" type="button">Save changes</button>
+          <button id="resetBtn" type="button">Reset</button>
+        </div>
+      </header>
+
+      <form id="editorForm" novalidate></form>
+
+      <div class="footer-save">
+        <button id="saveBottomBtn" class="primary" type="button">Save changes</button>
+      </div>
+    </div>
+
+
+    <script>
+      function normalizeMediaSources(value) {
+        if (!value) return [];
+        if (Array.isArray(value)) {
+          return value.map((entry) => String(entry).trim()).filter(Boolean);
+        }
+
+        const raw = String(value).trim();
+        if (!raw) return [];
+
+        if (raw.startsWith('[')) {
+          try {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              return parsed.map((entry) => String(entry).trim()).filter(Boolean);
+            }
+          } catch (error) {
+            // Fall back to legacy comma-separated storage.
+          }
+        }
+
+        const parts = [];
+        let current = '';
+        raw.split(',').forEach((segment) => {
+          const next = segment.trim();
+          if (!next) return;
+
+          if (!current) {
+            current = next;
+            return;
+          }
+
+          if (/^data:/i.test(current) && !/^data:/i.test(next)) {
+            current += `,${next}`;
+            return;
+          }
+
+          parts.push(current);
+          current = next;
+        });
+
+        if (current) parts.push(current);
+        return parts.filter(Boolean);
+      }
+    </script>
+        <script src="portfolio-editor.js"></script>
+    <script>
+      const form = document.getElementById('editorForm');
+      const config = [
+        { title: 'Hero section', fields: [ ['hero.line1', 'Hero main headline', 'text'], ['hero.line2', 'Hero highlight', 'text'], ['hero.intro', 'Hero intro text', 'textarea'] ] },
+        { title: 'Main work section', fields: [ ['work.kicker', 'Work kicker', 'text'], ['work.title', 'Work title', 'text'], ['work.lede', 'Work intro', 'textarea'], ['work.more', 'More project label', 'text'] ] },
+        { title: 'Featured project', fields: [ ['featured.title', 'Project title', 'text'], ['featured.description', 'Project description', 'textarea'], ['featured.role', 'Project role', 'text'], ['featured.year', 'Year', 'text'], ['featured.metaA', 'Meta line 1', 'text'], ['featured.metaB', 'Meta line 2', 'text'], ['featured.link', 'Project link', 'text'], ['featured.imageA', 'Primary image URL', 'image'], ['featured.imageB', 'Secondary image URL', 'image'] ] },
+        { title: 'Homepage cards', fields: [ ['card1.title', 'Card 1 title', 'text'], ['card1.description', 'Card 1 description', 'textarea'], ['card1.metaA', 'Card 1 tag 1', 'text'], ['card1.metaB', 'Card 1 tag 2', 'text'], ['card1.link', 'Card 1 link', 'text'], ['card1.image', 'Card 1 image URL', 'image'], ['card2.title', 'Card 2 title', 'text'], ['card2.description', 'Card 2 description', 'textarea'], ['card2.metaA', 'Card 2 tag 1', 'text'], ['card2.metaB', 'Card 2 tag 2', 'text'], ['card2.link', 'Card 2 link', 'text'], ['card2.image', 'Card 2 image URL', 'image'] ] },
+        { title: 'Archive page', fields: [ ['archive.hero.title', 'Archive title', 'text'], ['archive.hero.emphasis', 'Archive emphasis', 'text'], ['archive.hero.intro', 'Archive intro', 'textarea'], ['archive.section.title', 'Archive section title', 'text'], ['archive.section.lead', 'Archive section lead', 'textarea'] ] },
+        { title: 'Archive cards', fields: [ ['archive.card1.title', 'Archive card 1 title', 'text'], ['archive.card1.metaA', 'Archive card 1 tag 1', 'text'], ['archive.card1.metaB', 'Archive card 1 tag 2', 'text'], ['archive.card1.description', 'Archive card 1 description', 'textarea'], ['archive.card1.link', 'Archive card 1 link', 'text'], ['archive.card1.image', 'Archive card 1 image URL', 'image'], ['archive.card2.title', 'Archive card 2 title', 'text'], ['archive.card2.metaA', 'Archive card 2 tag 1', 'text'], ['archive.card2.metaB', 'Archive card 2 tag 2', 'text'], ['archive.card2.description', 'Archive card 2 description', 'textarea'], ['archive.card2.link', 'Archive card 2 link', 'text'], ['archive.card2.image', 'Archive card 2 image URL', 'image'], ['archive.card3.title', 'Archive card 3 title', 'text'], ['archive.card3.metaA', 'Archive card 3 tag 1', 'text'], ['archive.card3.metaB', 'Archive card 3 tag 2', 'text'], ['archive.card3.description', 'Archive card 3 description', 'textarea'], ['archive.card3.link', 'Archive card 3 link', 'text'], ['archive.card3.image', 'Archive card 3 image URL', 'image'], ['archive.card4.title', 'Archive card 4 title', 'text'], ['archive.card4.metaA', 'Archive card 4 tag 1', 'text'], ['archive.card4.metaB', 'Archive card 4 tag 2', 'text'], ['archive.card4.description', 'Archive card 4 description', 'textarea'], ['archive.card4.link', 'Archive card 4 link', 'text'], ['archive.card4.image', 'Archive card 4 image URL', 'image'] ] },
+        { title: 'Font size controls', fields: [ ['font.kicker', 'Kicker size (px)', 'number'], ['font.body', 'Body size (px)', 'number'], ['font.heroTitle', 'Hero title size (px)', 'number'], ['font.sectionTitle', 'Section title size (px)', 'number'], ['font.projectTitle', 'Project title size (px)', 'number'], ['font.projectMeta', 'Project meta size (px)', 'number'], ['font.projectRole', 'Project role size (px)', 'number'], ['font.projectDescription', 'Project description size (px)', 'number'], ['font.archiveTitle', 'Archive title size (px)', 'number'] ] }
+      ];
+
+      const data = window.PORTFOLIO_EDITOR ? window.PORTFOLIO_EDITOR.loadData() : {};
+
+      function attachMediaUploader(input, container) {
+        const uploader = document.createElement('input');
+        uploader.type = 'file';
+        uploader.multiple = true;
+        uploader.accept = 'image/*,video/*';
+
+        uploader.addEventListener('change', async (event) => {
+          const files = Array.from(event.target.files || []);
+          if (!files.length) return;
+
+          const selectedNames = files.map((file) => file.name).join(', ');
+          const meta = document.createElement('div');
+          meta.className = 'upload-meta';
+          meta.textContent = `Selected: ${selectedNames}`;
+
+          const existingMeta = event.target.parentElement?.parentElement?.querySelector('.upload-meta');
+          if (existingMeta) existingMeta.remove();
+          event.target.parentElement?.parentElement?.appendChild(meta);
+
+          Promise.all(files.map((file) => new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result).slice(0, 500000));
+            reader.readAsDataURL(file);
+          }))).then((results) => {
+            const existing = normalizeMediaSources(input.value);
+            const next = [...existing, ...results].filter(Boolean);
+            input.value = JSON.stringify(next);
+            attachMediaUploader(input, container);
+          });
+        });
+
+        const row = document.createElement('div');
+        row.className = 'upload-row';
+        row.appendChild(uploader);
+        container.appendChild(row);
+      }
+
+      function createField(key, labelText, type) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'field';
+        const label = document.createElement('label');
+        label.textContent = labelText;
+        label.setAttribute('for', key);
+        wrapper.appendChild(label);
+
+        let input;
+        if (type === 'textarea') {
+          input = document.createElement('textarea');
+        } else {
+          input = document.createElement('input');
+          input.type = type === 'number' ? 'number' : 'text';
+        }
+
+        input.name = key;
+        input.id = key;
+        input.value = data[key] || '';
+        wrapper.appendChild(input);
+
+        if (type === 'image') {
+          const uploadStack = document.createElement('div');
+          uploadStack.className = 'upload-stack';
+          attachMediaUploader(input, uploadStack);
+          wrapper.appendChild(uploadStack);
+        }
+
+        return wrapper;
+      }
+
+      function addCustomForm(type, item = {}) {
+        const panel = document.createElement('section');
+        panel.className = 'panel';
+        panel.dataset.customType = type;
+
+        const heading = document.createElement('h2');
+        heading.textContent = type === 'section' ? 'Custom section' : 'Custom project';
+        panel.appendChild(heading);
+
+        const grid = document.createElement('div');
+        grid.className = 'editor-grid';
+
+        const fields = type === 'section'
+          ? [
+              ['title', 'Section title', 'text', item.title || ''],
+              ['kicker', 'Kicker label', 'text', item.kicker || ''],
+              ['description', 'Section description', 'textarea', item.description || ''],
+              ['image', 'Image / video URL', 'image', item.image || ''],
+              ['link', 'Link URL', 'text', item.link || '']
+            ]
+          : [
+              ['title', 'Project title', 'text', item.title || ''],
+              ['tag', 'Tag 1', 'text', item.tag || ''],
+              ['tag2', 'Tag 2', 'text', item.tag2 || ''],
+              ['description', 'Project description', 'textarea', item.description || ''],
+              ['image', 'Image / video URL', 'image', item.image || ''],
+              ['inHomepage', 'Show on homepage', 'checkbox', item.inHomepage !== false],
+              ['inArchive', 'Show on more projects', 'checkbox', item.inArchive !== false],
+              ['link', 'Project link', 'text', item.link || '']
+            ];
+
+        fields.forEach(([name, labelText, fieldType, value]) => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'field';
+          const label = document.createElement('label');
+          label.textContent = labelText;
+          wrapper.appendChild(label);
+
+          let input;
+          if (fieldType === 'textarea') {
+            input = document.createElement('textarea');
+          } else {
+            input = document.createElement('input');
+            input.type = fieldType === 'number' ? 'number' : fieldType === 'checkbox' ? 'checkbox' : 'text';
+          }
+
+          input.name = `custom-${type}-${name}`;
+          input.dataset.customField = name;
+          if (fieldType === 'checkbox') {
+            input.checked = Boolean(value);
+          } else {
+            input.value = value || '';
+          }
+          wrapper.appendChild(input);
+
+          if (fieldType === 'image') {
+            const uploadStack = document.createElement('div');
+            uploadStack.className = 'upload-stack';
+            attachMediaUploader(input, uploadStack);
+            wrapper.appendChild(uploadStack);
+          }
+
+          grid.appendChild(wrapper);
+        });
+
+        const actions = document.createElement('div');
+        actions.className = 'upload-row';
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.textContent = 'Remove';
+        removeBtn.addEventListener('click', () => panel.remove());
+        actions.appendChild(removeBtn);
+        panel.appendChild(grid);
+        panel.appendChild(actions);
+        return panel;
+      }
+
+      function renderCustomEditors() {
+        const saved = window.PORTFOLIO_EDITOR ? window.PORTFOLIO_EDITOR.loadData() : { customSections: [], customProjects: [] };
+        const sectionEntries = Array.isArray(saved.customSections) ? saved.customSections : [];
+        const projectEntries = Array.isArray(saved.customProjects) ? saved.customProjects : [];
+
+        form.querySelectorAll('[data-custom-type]').forEach((node) => node.remove());
+
+        sectionEntries.forEach((item) => {
+          form.appendChild(addCustomForm('section', item));
+        });
+
+        projectEntries.forEach((item) => {
+          form.appendChild(addCustomForm('project', item));
+        });
+      }
+
+      config.forEach((group) => {
+        const panel = document.createElement('section');
+        panel.className = 'panel';
+        const heading = document.createElement('h2');
+        heading.textContent = group.title;
+        panel.appendChild(heading);
+
+        const grid = document.createElement('div');
+        grid.className = 'editor-grid';
+        group.fields.forEach(([key, label, type]) => {
+          grid.appendChild(createField(key, label, type));
+        });
+        panel.appendChild(grid);
+        form.appendChild(panel);
+      });
+
+      renderCustomEditors();
+
+      function collectCustomEntries(type) {
+        return Array.from(form.querySelectorAll(`[data-custom-type="${type}"]`)).map((panel) => {
+          const entry = {};
+          panel.querySelectorAll('[data-custom-field]').forEach((input) => {
+            const name = input.dataset.customField;
+            if (!name) return;
+            entry[name] = input.type === 'checkbox' ? input.checked : input.value;
+          });
+          return entry;
+        }).filter((entry) => Object.values(entry).some((value) => typeof value === 'boolean' ? true : String(value || '').trim()));
+      }
+
+      function collectData() {
+        const result = {};
+        Array.from(form.querySelectorAll('input,textarea')).forEach((node) => {
+          if (node.name && !/^(custom-)/.test(node.name)) result[node.name] = node.value;
+        });
+        result.customSections = collectCustomEntries('section');
+        result.customProjects = collectCustomEntries('project');
+        return result;
+      }
+
+      function save() {
+        const values = collectData();
+        // #region agent log
+        fetch('http://127.0.0.1:7784/ingest/9f98281f-b8f4-415e-aff5-705466cff9cc',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'70a942'},body:JSON.stringify({sessionId:'70a942',runId:'pre-fix',hypothesisId:'E',location:'admin.html:save',message:'admin collected links',data:{featured:values['featured.link'],card1:values['card1.link'],card2:values['card2.link'],archive1:values['archive.card1.link'],customProjects:(values.customProjects||[]).map((p)=>({title:p.title,link:p.link}))},timestamp:Date.now()})}).catch(()=>{});
+        // #endregion
+        if (window.PORTFOLIO_EDITOR) {
+          window.PORTFOLIO_EDITOR.saveData(values);
+          window.PORTFOLIO_EDITOR.applyFonts();
+          window.PORTFOLIO_EDITOR.applyContent();
+          alert('Portfolio content saved to this browser.');
+        }
+      }
+
+      document.getElementById('saveBtn').addEventListener('click', save);
+      document.getElementById('saveBottomBtn').addEventListener('click', save);
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        if (window.confirm('Reset all portfolio content to the default version?')) {
+          window.PORTFOLIO_EDITOR.reset();
+        }
+      });
+      document.getElementById('addSectionBtn').addEventListener('click', () => {
+        form.appendChild(addCustomForm('section'));
+      });
+      document.getElementById('addProjectBtn').addEventListener('click', () => {
+        form.appendChild(addCustomForm('project'));
+      });
+    </script>
+  </body>
+</html>

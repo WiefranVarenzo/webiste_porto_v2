@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio of Wiefran Varenzo, a data scientist and machine learning engineer building practical AI products." />
+    <meta name="theme-color" content="#f2f0e9" />
+    <title>Wiefran Varenzo — Data Scientist & ML Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="portfolio-editor.js"></script>
+    <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'light';</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Wiefran Varenzo, home"><span>WV</span><span class="brand-name">Wiefran Varenzo</span></a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#work" data-i18n="nav.work">Work</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#experience" data-i18n="nav.experience">Experience</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="text-button" id="language-toggle" type="button" aria-label="Switch language">ID</button>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch color theme"><span aria-hidden="true">◐</span></button>
+        <button class="menu-button" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
+      </div>
+      <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
+        <a href="#work" data-i18n="nav.work">Work</a><a href="#about" data-i18n="nav.about">About</a><a href="#experience" data-i18n="nav.experience">Experience</a><a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span data-i18n="hero.status">Open to data & AI opportunities</span></p>
+          <h1><span data-edit-key="hero.line1" data-i18n="hero.line1">I turn complex problems</span><br /><em data-edit-key="hero.line2" data-i18n="hero.line2">into intelligent products</em></h1>
+          <p class="hero-intro" data-edit-key="hero.intro" data-i18n="hero.intro">Data Scientist and Machine Learning Engineer focused on practical AI, clear analysis, and products that people can actually use.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#work" data-i18n="hero.cta">See selected work</a>
+            <a class="button quiet" href="mailto:varenzo.wiefran@gmail.com" data-i18n="hero.email">Email me ↗</a>
+          </div>
+        </div>
+        <figure class="portrait-wrap reveal">
+          <div class="portrait-frame"><img src="assets/wiefran2.png" alt="Portrait of Wiefran Varenzo" /></div>
+          <figcaption><span>Jakarta, ID</span><span data-i18n="hero.role">Data · ML · AI</span></figcaption>
+        </figure>
+        <div class="hero-index" aria-hidden="true">01—08</div>
+      </section>
+
+      <section class="section work-section" id="work">
+        <div class="section-heading reveal"><p class="kicker"><span data-edit-key="work.kicker" data-i18n="work.kicker">01 / Selected work</span></p><h2 data-edit-key="work.title" data-i18n="work.title">A few things I’m proud to have built.</h2><p data-edit-key="work.lede" data-i18n="work.lede">A focused selection—enough context to understand the problem, my role, and the result.</p></div>
+
+        <article class="project project-featured reveal">
+          <a class="project-media motion-media" href="#experience" aria-label="NextGen project overview" data-sources="assets/pu-capaian.png,assets/pu-cert.jpg" data-link-key="featured.link">
+            <img class="motion-frame frame-a" src="assets/pu-capaian.png" alt="NextGen competency recommendation system presentation" data-media-key="featured.imageA" />
+            <img class="motion-frame frame-b" src="assets/pu-cert.jpg" alt="Public Works internship certificate" data-media-key="featured.imageB" />
+            <span class="nav-zone nav-zone-prev" aria-label="Previous preview" role="button" tabindex="0"></span>
+            <span class="nav-zone nav-zone-next" aria-label="Next preview" role="button" tabindex="0"></span>
+            <span class="media-hint" data-i18n="work.motion">Hover to preview</span>
+          </a>
+          <div class="project-copy">
+            <div class="project-meta"><span data-edit-key="featured.year">2025</span><span data-edit-key="featured.metaA">ML / GCP / Big Data</span></div>
+            <h3 data-edit-key="featured.title">NextGen</h3>
+            <p data-edit-key="featured.description">An AI and big-data recommendation system for Indonesian civil-servant competency development, built during my internship at the Ministry of Public Works.</p>
+            <p class="project-role"><strong data-i18n="labels.role">Role</strong> <span data-edit-key="featured.role">Machine Learning Specialist</span></p>
+          </div>
+        </article>
+
+        <div class="project-grid">
+          <article class="project project-card reveal">
+            <a class="project-media motion-media" href="https://github.com/WiefranVarenzo/ChatTax" target="_blank" rel="noreferrer" data-sources="assets/chattax-chatbot.jpg,assets/chattax-eval.jpg" data-link-key="card1.link">
+              <img class="motion-frame frame-a" src="assets/chattax-chatbot.jpg" alt="ChatTax chatbot interface" data-media-key="card1.image" />
+              <img class="motion-frame frame-b" src="assets/chattax-eval.jpg" alt="ChatTax evaluation metrics" data-media-key="card1.image" />
+              <span class="nav-zone nav-zone-prev" aria-label="Previous preview" role="button" tabindex="0"></span>
+              <span class="nav-zone nav-zone-next" aria-label="Next preview" role="button" tabindex="0"></span>
+              <span class="media-hint" data-i18n="work.motion">Hover to preview</span>
+            </a>
+            <div class="project-copy"><div class="project-meta"><span data-edit-key="card1.metaA">GenAI</span><span data-edit-key="card1.metaB">RAG / QLoRA</span></div><h3 data-edit-key="card1.title">ChatTax <a href="https://github.com/WiefranVarenzo/ChatTax" target="_blank" rel="noreferrer" aria-label="Open ChatTax on GitHub">↗</a></h3><p data-edit-key="card1.description">A tax assistant combining a fine-tuned Mistral 7B model with RAG to answer from current regulation documents.</p></div>
+          </article>
+          <article class="project project-card reveal">
+            <a class="project-media" href="https://github.com/Anevia-Capstone" target="_blank" rel="noreferrer" data-link-key="card2.link"><img src="assets/anevia.png" alt="Anevia anemia detection web application" data-media-key="card2.image" /><span class="media-hint">GitHub ↗</span></a>
+            <div class="project-copy"><div class="project-meta"><span data-edit-key="card2.metaA">Computer Vision</span><span data-edit-key="card2.metaB">U-Net / ResNet50</span></div><h3 data-edit-key="card2.title">Anevia <a href="https://www.anevia.my.id/" target="_blank" rel="noreferrer" aria-label="Open Anevia website">↗</a></h3><p data-edit-key="card2.description">An early anemia-detection web app using eye-image segmentation, designed to make screening more accessible.</p></div>
+          </article>
+        </div>
+        <div id="custom-project-grid" class="project-grid" data-custom-projects-root data-custom-projects-scope="home"></div>
+        <div class="more-work reveal">
+          <a class="more-work-link" href="projects.html"><span data-edit-key="work.more" data-i18n="work.more">More projects</span><span>↗</span></a>
+        </div>
+      </section>
+
+      <div id="custom-sections-root" data-custom-sections-root></div>
+
+      <section class="section about-section" id="about">
+        <div class="section-heading reveal"><p class="kicker">02 / <span data-i18n="about.kicker">Profile</span></p><h2 data-i18n="about.title">Technical depth, communicated clearly.</h2></div>
+        <div class="about-layout reveal">
+          <p class="about-lead" data-i18n="about.lead">I’m a Computer Science student at Universitas Gunadarma with a 3.99 GPA. I enjoy the full path from messy data and experiments to a clear story and a working product.</p>
+          <div class="about-detail"><p data-i18n="about.detail">My work spans machine learning, NLP, computer vision, recommendation systems, and data visualization. I’m especially comfortable turning analysis into something teams can understand and act on.</p><div class="social-links"><a href="https://github.com/WiefranVarenzo" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/wiefran-varenzo/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="mailto:varenzo.wiefran@gmail.com">Email ↗</a></div></div>
+        </div>
+      </section>
+
+      <section class="section experience-section" id="experience">
+        <div class="section-heading reveal"><p class="kicker">03 / <span data-i18n="experience.kicker">Experience</span></p><h2 data-i18n="experience.title">Learning by building, presenting, and shipping.</h2></div>
+        <div class="timeline reveal">
+          <article><time>2025</time><div><h3 data-i18n="experience.puTitle">Machine Learning Specialist Intern</h3><p>Kementerian Pekerjaan Umum</p><small data-i18n="experience.puText">Built NextGen, an automated AI and big-data competency recommendation system integrated with Google Cloud Platform.</small></div></article>
+          <article><time>2025</time><div><h3 data-i18n="experience.pitchTitle">Best AI Integration Award</h3><p>International Business Pitch Fest</p><small data-i18n="experience.pitchText">Represented Indonesia with MeatSure among teams from Russia and Uzbekistan.</small></div></article>
+          <article><time>2025</time><div><h3 data-i18n="experience.campTitle">Coding Camp Graduate</h3><p>Coding Camp by DBS</p><small data-i18n="experience.campText">Completed a six-month intensive program with a final score of 97.0.</small></div></article>
+          <article><time>2022—<span data-i18n="labels.present">Present</span></time><div><h3 data-i18n="experience.eduTitle">Computer Science</h3><p>Universitas Gunadarma</p><small>GPA 3.99 / 4.00</small></div></article>
+        </div>
+      </section>
+
+      <section class="section capabilities-section" id="capabilities">
+        <div class="section-heading reveal"><p class="kicker">04 / <span data-i18n="capabilities.kicker">Capabilities</span></p><h2 data-i18n="capabilities.title">What I bring to the team.</h2></div>
+        <div class="capability-grid reveal">
+          <article><span>01</span><h3 data-i18n="capabilities.ml">Machine Learning</h3><p>Python, PyTorch, TensorFlow, Scikit-learn, model evaluation</p></article>
+          <article><span>02</span><h3 data-i18n="capabilities.data">Data & Insight</h3><p>SQL, preprocessing, experimentation, Tableau, storytelling</p></article>
+          <article><span>03</span><h3 data-i18n="capabilities.ai">Applied AI</h3><p>LLMs, RAG, NLP, computer vision, recommendation systems</p></article>
+          <article><span>04</span><h3 data-i18n="capabilities.product">Product Thinking</h3><p data-i18n="capabilities.productText">Clear communication, collaboration, and practical delivery</p></article>
+        </div>
+      </section>
+
+      <section class="section resume-section" id="resume">
+        <div class="section-heading reveal"><p class="kicker">05 / <span data-i18n="resume.kicker">Resume</span></p><h2 data-i18n="resume.title">The one-minute version.</h2></div>
+        <div class="resume-card reveal">
+          <div><p class="eyebrow" data-i18n="resume.label">WIEFRAN VARENZO — PROFILE</p><h3 data-i18n="resume.role">Data Scientist & Machine Learning Engineer</h3></div>
+          <p data-i18n="resume.summary">Computer Science student with a 3.99 GPA, hands-on AI product experience, and a track record across machine learning, data analysis, and technical presentation.</p>
+          <a class="button primary" href="mailto:varenzo.wiefran@gmail.com?subject=Resume%20request" data-i18n="resume.cta">Request current PDF ↗</a>
+        </div>
+      </section>
+
+      <section class="section credentials-section" id="credentials">
+        <div class="section-heading reveal"><p class="kicker">06 / <span data-i18n="credentials.kicker">Credentials & media</span></p><h2 data-i18n="credentials.title">Proof beyond the project cards.</h2></div>
+        <div class="media-strip reveal" aria-label="Credentials gallery">
+          <figure><img src="assets/pu-group.jpg" alt="Ministry of Public Works internship group" /><figcaption data-i18n="media.pu">Ministry of Public Works internship</figcaption></figure>
+          <figure><img src="assets/pitch-fest.jpg" alt="International Business Pitch Fest award" /><figcaption data-i18n="media.pitch">Best AI Integration Award</figcaption></figure>
+          <figure><img src="assets/coding-camp.png" alt="Coding Camp certificate" /><figcaption data-i18n="media.camp">Coding Camp graduate</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact">
+        <p class="kicker">07 / <span data-i18n="contact.kicker">Contact</span></p>
+        <h2 data-i18n="contact.title">Have a data problem worth solving?</h2>
+        <a class="contact-link" href="mailto:varenzo.wiefran@gmail.com"><span data-i18n="contact.cta">Let’s talk</span> ↗</a>
+        <div class="contact-meta"><p>Jakarta, Indonesia</p><p><a href="https://github.com/WiefranVarenzo" target="_blank" rel="noreferrer">GitHub</a> · <a href="https://www.linkedin.com/in/wiefran-varenzo/" target="_blank" rel="noreferrer">LinkedIn</a></p></div>
+      </section>
+    </main>
+    <footer><span>© <span id="year"></span> Wiefran Varenzo</span><a href="#top" data-i18n="footer.top">Back to top ↑</a></footer>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Additional project showcase by Wiefran Varenzo." />
+    <meta name="theme-color" content="#f2f0e9" />
+    <title>More Projects — Wiefran Varenzo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="portfolio-editor.js"></script>
+    <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'light';</script>
+  </head>
+  <body class="projects-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="index.html#top" aria-label="Wiefran Varenzo, home"><span>WV</span><span class="brand-name">Wiefran Varenzo</span></a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="text-button" id="language-toggle" type="button" aria-label="Switch language">ID</button>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch color theme"><span aria-hidden="true">◐</span></button>
+        <button class="menu-button" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
+      </div>
+      <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html#work">Work</a><a href="index.html#about">About</a><a href="index.html#experience">Experience</a><a href="index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero projects-hero reveal">
+        <div class="hero-copy">
+          <p class="eyebrow">Extended portfolio</p>
+          <h1><span data-edit-key="archive.hero.title">More projects</span> <em data-edit-key="archive.hero.emphasis">in motion</em></h1>
+          <p class="hero-intro" data-edit-key="archive.hero.intro">A richer archive of machine learning, data storytelling, and applied AI work—each one designed to show the thinking behind the result.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="index.html#work">Back to main portfolio</a>
+          </div>
+        </div>
+        <div class="project-archive-grid reveal" aria-label="Portfolio archive preview panels">
+          <div class="archive-tile" style="background-image:url('assets/10.png');"><span>Recommendation systems</span></div>
+          <div class="archive-tile" style="background-image:url('assets/DeckBusinessCaseShareUI.png');"><span>Business case</span></div>
+          <div class="archive-tile" style="background-image:url('assets/Bert.png');"><span>NLP + sentiment</span></div>
+          <div class="archive-tile" style="background-image:url('assets/7.png');"><span>AI + healthcare</span></div>
+        </div>
+      </section>
+
+      <div id="custom-sections-root" data-custom-sections-root></div>
+
+      <section class="section projects-showcase-section">
+        <div class="section-heading reveal">
+          <p class="kicker">01 / Portfolio archive</p>
+          <h2>Selected work beyond the featured cases.</h2>
+          <p>These are companion projects from my learning and experimentation journey—each one solving a small but meaningful problem with data and AI.</p>
+        </div>
+
+        <div class="projects-showcase" data-custom-projects-root data-custom-projects-scope="archive"></div>
+
+        <div class="projects-showcase">
+          <article class="project-showcase-card reveal">
+            <div class="project-media motion-media" data-sources="assets/10.png" aria-label="Fashion recommendation system preview">
+             <img class="motion-frame frame-a" src="assets/10.png" alt="Fashion recommendation system preview" />
+             <span class="media-hint media-hint--single">Preview</span>
+            </div>
+            <div class="project-copy">
+             <div class="project-meta"><span>Recommendation</span><span>TF-IDF · LSA</span></div>
+             <h3>Fashion Recommendation System</h3>
+             <p>Built a product recommendation system for fashion e-commerce using content-based filtering and collaborative approaches to suggest more relevant products.</p>
+             <div class="project-links"><a href="https://github.com/WiefranVarenzo/Recommendation-System-Project" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+            </div>
+          </article>
+
+          <article class="project-showcase-card reveal">
+            <div class="project-media motion-media" data-sources="assets/8.png" aria-label="BCA review sentiment analysis preview">
+             <img class="motion-frame frame-a" src="assets/8.png" alt="BCA review sentiment analysis preview" />
+             <span class="media-hint media-hint--single">Preview</span>
+            </div>
+            <div class="project-copy">
+             <div class="project-meta"><span>NLP</span><span>RCNN · GRU · LSTM</span></div>
+             <h3>BCA Review Sentiment Analysis</h3>
+             <p>Analyzed 144,000 Google Play reviews for BCA Mobile and compared multiple deep-learning models to determine the strongest sentiment classifier.</p>
+             <div class="project-links"><a href="https://github.com/WiefranVarenzo/Sentiment-Analysis-of-BCA-Mobile-Reviews-on-Google-Play-Store" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+            </div>
+          </article>
+
+          <article class="project-showcase-card reveal">
+            <div class="project-media motion-media" data-sources="assets/Bert.png" aria-label="TellMe emotion analysis preview">
+             <img class="motion-frame frame-a" src="assets/Bert.png" alt="TellMe emotion analysis preview" />
+             <span class="media-hint media-hint--single">Preview</span>
+            </div>
+            <div class="project-copy">
+             <div class="project-meta"><span>LLM</span><span>BERT · Whisper</span></div>
+             <h3>TellMe Emotion Analysis</h3>
+             <p>Used transformers and speech-to-text workflows for emotion analytics from audio and text, combining NLP with multimodal inputs.</p>
+             <div class="project-links"><a href="https://github.com/WiefranVarenzo/TellMe" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+            </div>
+          </article>
+
+          <article class="project-showcase-card reveal">
+            <div class="project-media motion-media" data-sources="assets/9.png" aria-label="Bank fraud detection preview">
+             <img class="motion-frame frame-a" src="assets/9.png" alt="Bank fraud detection preview" />
+             <span class="media-hint media-hint--single">Preview</span>
+            </div>
+            <div class="project-copy">
+             <div class="project-meta"><span>Risk</span><span>K-Means · SVM</span></div>
+             <h3>Bank Fraud Detection</h3>
+             <p>Combined unsupervised clustering and supervised classification to detect suspicious bank transactions and segment customer behavior patterns.</p>
+             <div class="project-links"><a href="https://github.com/WiefranVarenzo/Bank-Fraud-Detection-with-Unsupervised-and-Supervised-Learning" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+            </div>
+          </article>
+
+          <article class="project-showcase-card reveal">
+            <div class="project-media motion-media" data-sources="assets/5.png" aria-label="Hydroponic monitoring preview">
+             <img class="motion-frame frame-a" src="assets/5.png" alt="Hydroponic monitoring preview" />
+             <span class="media-hint media-hint--single">Preview</span>
+            </div>
+            <div class="project-copy">
+             <div class="project-meta"><span>IoT</span><span>Computer Vision</span></div>
+             <h3>Hydroponic Monitoring IoT + Plant Disease Analysis</h3>
+             <p>Combined IoT sensors and computer vision to monitor hydroponic environments and detect plant health issues using image-based analysis.</p>
+             <div class="project-links"><a href="https://drive.google.com/drive/folders/1x3DjNUqxiJCb1V5uljuqCidNR8pTv7mD" target="_blank" rel="noreferrer">Project link ↗</a></div>
+            </div>
+          </article>
+
+          <article class="project-showcase-card reveal">
+            <div class="project-media motion-media" data-sources="assets/2.png" aria-label="HR attrition analysis preview">
+             <img class="motion-frame frame-a" src="assets/2.png" alt="HR attrition analysis preview" />
+             <span class="media-hint media-hint--single">Preview</span>
+            </div>
+            <div class="project-copy">
+             <div class="project-meta"><span>Analytics</span><span>Random Forest</span></div>
+             <h3>HR Attrition Analysis and Prediction</h3>
+             <p>Analyzed employee churn patterns and built a random forest model to predict attrition risk and visualize the main drivers behind turnover.</p>
+             <div class="project-links"><a href="https://github.com/WiefranVarenzo/Dicoding-Expert" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+            </div>
+          </article>
+
+          <article class="project-showcase-card reveal">
+            <div class="project-media motion-media" data-sources="assets/3.png" aria-label="Student dropout analysis preview">
+             <img class="motion-frame frame-a" src="assets/3.png" alt="Student dropout analysis preview" />
+             <span class="media-hint media-hint--single">Preview</span>
+            </div>
+            <div class="project-copy">
+             <div class="project-meta"><span>Education</span><span>Random Forest</span></div>
+             <h3>Student Dropout Analysis</h3>
+             <p>Predicted and analyzed dropout risk among students by identifying the highest-impact factors and using model-based insight to support intervention strategies.</p>
+             <div class="project-links"><a href="https://github.com/WiefranVarenzo/DicodingExpert2" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+            </div>
+          </article>
+        </div>
+
+        <a class="back-link reveal" href="index.html#work"><span>Back to main portfolio</span><span>←</span></a>
+      </section>
+    </main>
+
+    <footer><span>© <span id="year"></span> Wiefran Varenzo</span><a href="#top">Back to top ↑</a></footer>
+    <script src="app.js"></script>
+  </body>
+</html>
