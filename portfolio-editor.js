@@ -78,7 +78,7 @@
         image: ['assets/reksa-helmet.jpg', 'assets/reksa-circuit.png'],
         inHomepage: true,
         inArchive: true,
-        link: 'https://example.com'
+        link: 'https://www.youtube.com/watch?v=aq8y6m_AiCI'
       }
     ]
   };
